@@ -19,3 +19,7 @@ node:
 .PHONY: test
 test:
 	env TEZOS_RPC_PORT=$(TEZOS_RPC_PORT) go test -race -cover ./...
+
+.PHONY: bin
+bin:
+	sh .scripts/build.sh
