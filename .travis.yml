@@ -5,18 +5,21 @@ services:
   - docker
 
 install:
-  - wget https://gitlab.com/tezos/tezos/raw/master/scripts/alphanet.sh
-  - chmod +x alphanet.sh
   - go get github.com/golang/dep/cmd/dep
   - dep ensure -v
 
+env:
+  global:
+    - TEZOS_RPC_PORT=18731
+
 before_script: |
-  # Start alphanet
-  ./alphanet.sh start --rpc-port 8732 --no-bootstrap-peers --sandbox
+  # Start tezos sandbox node
+  (cd test ; docker-compose up --build) &
   # Wait for network to start
-  until $(curl --output /dev/null --silent --fail http://127.0.0.1:8732/monitor/bootstrapped); do
-      printf '.'
-      sleep 5
+  sleep 5
+  until $(curl --output /dev/null --silent --fail http://127.0.0.1:$TEZOS_RPC_PORT/monitor/bootstrapped); do
+    printf '.'
+    sleep 5
   done
 
 script:

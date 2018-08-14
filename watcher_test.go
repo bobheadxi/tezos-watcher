@@ -7,6 +7,8 @@ import (
 	"github.com/bobheadxi/tezos-watcher/tezos"
 )
 
+var testHost, testPort = tezos.GetTestNodeParams()
+
 func TestNew(t *testing.T) {
 	type args struct {
 		opts ConnectOpts
@@ -16,8 +18,8 @@ func TestNew(t *testing.T) {
 		args    args
 		wantErr bool
 	}{
-		{"invalid connectOpts", args{ConnectOpts{tezos.TestHost, ""}}, true},
-		{"valid connectOpts", args{ConnectOpts{tezos.TestHost, tezos.TestPort}}, false},
+		{"invalid connectOpts", args{ConnectOpts{testHost, ""}}, true},
+		{"valid connectOpts", args{ConnectOpts{testHost, testPort}}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -47,9 +49,10 @@ func TestTezosWatcher_WatchBlock(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			w, err := New(ConnectOpts{tezos.TestHost, tezos.TestPort})
+			w, err := New(ConnectOpts{testHost, testPort})
 			if err != nil {
 				t.Errorf("unexpected New() error = %v", err)
+				return
 			}
 
 			quit := make(chan (struct{}))
@@ -88,9 +91,10 @@ func TestTezosWatcher_getBlockStatus(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			w, err := New(ConnectOpts{tezos.TestHost, tezos.TestPort})
+			w, err := New(ConnectOpts{testHost, testPort})
 			if err != nil {
 				t.Errorf("unexpected New() error = %v", err)
+				return
 			}
 			got, err := w.getBlockStatus(tt.args.chain, tt.args.block)
 			if (err != nil) != tt.wantErr {

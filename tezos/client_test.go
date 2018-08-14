@@ -4,6 +4,11 @@ import (
 	"testing"
 )
 
+func testAddress() string {
+	h, p := GetTestNodeParams()
+	return h + ":" + p
+}
+
 func TestNew(t *testing.T) {
 	type args struct {
 		addr string
@@ -14,7 +19,7 @@ func TestNew(t *testing.T) {
 		wantErr bool
 	}{
 		{"invalid address", args{"123.456.789"}, true},
-		{"valid address", args{testAddress}, false},
+		{"valid address", args{testAddress()}, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -46,7 +51,7 @@ func TestClient_Get(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			c, err := New(testAddress)
+			c, err := New(testAddress())
 			if err != nil {
 				t.Errorf("unexpected New() error = %v", err)
 				return

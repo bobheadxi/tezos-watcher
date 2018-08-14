@@ -1,4 +1,4 @@
-# tezos-watcher [![GoDoc](https://godoc.org/github.com/bobheadxi/tezos-watcher?status.svg)](https://godoc.org/github.com/bobheadxi/tezos-watcher)
+# tezos-watcher [![GoDoc](https://godoc.org/github.com/bobheadxi/tezos-watcher?status.svg)](https://godoc.org/github.com/bobheadxi/tezos-watcher) [![Build Status](https://travis-ci.com/bobheadxi/tezos-watcher.svg?branch=master)](https://travis-ci.com/bobheadxi/tezos-watcher) [![codecov](https://codecov.io/gh/bobheadxi/tezos-watcher/branch/master/graph/badge.svg)](https://codecov.io/gh/bobheadxi/tezos-watcher)
 
 Monitor your Tezos node.
 

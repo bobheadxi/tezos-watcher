@@ -9,3 +9,7 @@ deps:
 .PHONY: cli
 cli:
 	go install ./cmd/tezos-watcher
+
+.PHONY: node
+node:
+	@(cd test ; docker-compose up --build)
