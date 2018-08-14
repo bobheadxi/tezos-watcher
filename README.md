@@ -25,3 +25,11 @@ $> tezos-watcher watch-chain
 ```
 
 The `-h` flag offers documentation on the command line tool.
+
+## Development
+
+```bash
+$> make          # install dependencies, install tezos-watcher CLI
+$> make node     # start up Tezos sandbox node
+$> make test     # execute tests against sandbox node
+```
