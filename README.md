@@ -1,4 +1,4 @@
-# tezos-watcher [![GoDoc](https://godoc.org/github.com/bobheadxi/tezos-watcher?status.svg)](https://godoc.org/github.com/bobheadxi/tezos-watcher) [![Build Status](https://travis-ci.org/bobheadxi/tezos-watcher.svg?branch=master)](https://travis-ci.org/bobheadxi/tezos-watcher) [![Coverage Status](https://coveralls.io/repos/github/bobheadxi/tezos-watcher/badge.svg?branch=master)](https://coveralls.io/github/bobheadxi/tezos-watcher?branch=master)
+# tezos-watcher [![GoDoc](https://godoc.org/github.com/bobheadxi/tezos-watcher?status.svg)](https://godoc.org/github.com/bobheadxi/tezos-watcher) [![Build Status](https://travis-ci.com/bobheadxi/tezos-watcher.svg?token=yjpN8EDzhK3qYaBpZzZc&branch=master)](https://travis-ci.com/bobheadxi/tezos-watcher)
 
 Monitor your Tezos node.
 
