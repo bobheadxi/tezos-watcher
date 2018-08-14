@@ -1,0 +1,23 @@
+language: go
+go:
+  - "1.10"
+services:
+  - docker
+
+install:
+  - wget https://gitlab.com/tezos/tezos/raw/master/scripts/alphanet.sh
+  - chmod +x alphanet.sh
+  - go get github.com/golang/dep/cmd/dep
+  - dep ensure -v
+
+before_script:
+  - ./alphanet.sh start --rpc-port 8732
+
+script:
+  - go test -race -coverprofile=coverage.txt ./...
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+notifications: 
+  email: false 

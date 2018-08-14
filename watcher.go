@@ -60,6 +60,8 @@ func (w *TezosWatcher) WatchBlock(opts BlockOptions, quit <-chan struct{}) (<-ch
 				}()
 			case <-quit:
 				ticker.Stop()
+				close(statusCh)
+				close(errCh)
 				return
 			}
 		}
