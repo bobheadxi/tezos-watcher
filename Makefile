@@ -1,6 +1,6 @@
 TEZOS_CLIENT = $(HOME)/tezos/tezos-client
 
-all: deps
+all: deps cli
 
 .PHONY: deps
 deps:

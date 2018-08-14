@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -30,14 +31,15 @@ var cmdWatchChain = &cobra.Command{
 			internal.Fail(err.Error())
 		}
 
-		// Start watching
 		chain, _ := cmd.Flags().GetString("chain")
 		block, _ := cmd.Flags().GetString("block")
 		rate, _ := cmd.Flags().GetInt("rate")
-		fmt.Printf("Watching %s/%s on %s:%s...\n", chain, block, host, port)
 		quit := make(chan struct{})
 		statusCh, errCh := w.WatchBlock(watcher.BlockOptions{
 			Chain: chain, Block: block, Rate: time.Duration(rate) * time.Second}, quit)
+
+		// Start watching output
+		fmt.Printf("Watching %s/%s on %s:%s...\n", chain, block, host, port)
 		for {
 			select {
 			case err := <-errCh:
@@ -46,8 +48,12 @@ var cmdWatchChain = &cobra.Command{
 					internal.Fail(err.Error())
 				}
 			case event := <-statusCh:
-				// placeholder
-				fmt.Printf("%v\n", event)
+				b, err := json.Marshal(event)
+				if err != nil {
+					close(quit)
+					internal.Fail(err.Error())
+				}
+				println(string(b))
 			}
 		}
 	},
