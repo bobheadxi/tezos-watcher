@@ -1,11 +1,11 @@
 package tezos
 
-const (
-	// TestHost is local host
-	TestHost = "127.0.0.1"
+import "os"
 
-	// TestPort is default RPC API port
-	TestPort = "8732"
-
-	testAddress = TestHost + ":" + TestPort
-)
+// GetTestNodeParams retrieves test node settings
+func GetTestNodeParams() (string, string) {
+	if os.Getenv("TEZOS_RPC_PORT") != "" {
+		return "127.0.0.1", os.Getenv("TEZOS_RPC_PORT")
+	}
+	return "127.0.0.1", "8732"
+}

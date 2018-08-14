@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  tezos_sandbox_node:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "18731:18731"
+      - "19731:19731"
