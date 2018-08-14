@@ -2,7 +2,6 @@ package watcher
 
 import (
 	"fmt"
-	"net/http"
 	"time"
 
 	"github.com/bobheadxi/tezos-watcher/tezos"
@@ -10,7 +9,7 @@ import (
 
 // TezosWatcher is a tezos node watcher
 type TezosWatcher struct {
-	c *rpcClient
+	c *tezos.Client
 }
 
 // ConnectOpts defines connection options to your tezos node
@@ -25,7 +24,11 @@ func New(opts ConnectOpts) (*TezosWatcher, error) {
 	if opts.Port != "" {
 		address += ":" + opts.Port
 	}
-	return &TezosWatcher{&rpcClient{address, http.DefaultClient}}, nil
+	c, err := tezos.New(address)
+	if err != nil {
+		return nil, err
+	}
+	return &TezosWatcher{c}, nil
 }
 
 // BlockOptions defines block configuration
