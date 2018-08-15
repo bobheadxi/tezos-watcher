@@ -4,11 +4,15 @@ Monitor your Tezos node.
 
 ## Installing
 
+To install the CLI, use the following `go get` command or check the `releases` page.
+
 ```bash
 $> go get github.com/bobheadxi/tezos-watcher/cmd/tezos-watcher
 ```
 
 ## Usage
+
+### CLI
 
 Get the [Tezos Alphanet up and running](http://tezos.gitlab.io/betanet/introduction/howtoget.html). Make sure to start up a node with the RPC endpoints exposed - for example:
 
@@ -25,6 +29,33 @@ $> tezos-watcher watch-chain
 ```
 
 The `-h` flag offers documentation on the command line tool.
+
+### Library
+
+```go
+w, _ := watcher.New(watcher.ConnectOpts{
+  Host: "127.0.0.1", Port: "8732"})
+
+quit := make(chan struct{})
+defer close(quit)
+statusCh, errCh := w.WatchBlock(watcher.BlockOptions{
+  Chain: "main",
+  Block: "head",
+  Rate:  1 * time.Second,
+}, quit)
+
+for {
+  select {
+  case err := <-errCh:
+    if err != nil {
+      return
+    }
+  case event := <-statusCh:
+    output, _ := json.Marshal(event)
+    println(string(output))
+  }
+}
+```
 
 ## Development
 
