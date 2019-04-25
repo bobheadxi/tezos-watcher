@@ -64,3 +64,7 @@ $> make          # install dependencies, install tezos-watcher CLI
 $> make node     # start up Tezos sandbox node
 $> make test     # execute tests against sandbox node
 ```
+
+## Notes
+
+This project was written as part of a pre-task for a job.
